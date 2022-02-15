@@ -2,13 +2,9 @@ package com.example.springbootdemo.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
@@ -20,12 +16,17 @@ public class User {
     private Long id;
 
     @Column(name = "first_name")
-    @NotEmpty(message = "First name should not be empty")
-    @Size(min = 2, max = 30, message = "First name should be between 2 and 30 characters")
+    @Size(min = 2, max = 30, message = "First name should be between 2 and 30 letters")
+    @NotBlank(message = "First name is required for filling")
     private String firstName;
 
     @Column(name = "last_name")
-    @NotEmpty(message = "Last name should not be empty")
-    @Size(min = 2, max = 30, message = "Last name should be between 2 and 30 characters")
+    @Size(min = 2, max = 30, message = "Last name should be between 2 and 30 letters")
+    @NotBlank(message = "Last name is required for filling")
     private String lastName;
+
+    @Column(name = "email")
+    @NotBlank(message = "email is required for filling")
+    @Email
+    private String email;
 }

@@ -5,10 +5,9 @@ import com.example.springbootdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-
 import javax.validation.Valid;
+
 
 @Component
 @Valid
@@ -31,40 +30,41 @@ public class UserValidator implements Validator {
     public void validate(Object target, Errors errors) {
         User user = (User) target;
 
-        if (user.getFirstName().length() < 2 || user.getFirstName().length() > 30) {
-            errors.rejectValue("firstName", "", "First name must be between 2 and 30 characters");
+        if(user.getFirstName() == null || user.getFirstName().trim().length()==0){
+           return;
         }
 
-
-        if (user.getLastName().length() < 2 || user.getLastName().length() > 30) {
-            errors.rejectValue("lastName", "", "Last name must be between 2 and 30 characters");
+        if (user.getLastName() == null || user.getLastName().trim().length()==0){
+           return;
         }
 
+        else{
 
-        char[] symbolsFirstName = user.getFirstName().toCharArray();
+            for (int i = 0; i < user.getFirstName().length(); i++) {
+                if (user.getFirstName().charAt(i) >= '0'
+                        && user.getFirstName().charAt(i) <= '9') {
+                    errors.rejectValue("firstName", "", "First name must have only letters");
+                }
+            }
 
-        for (int i = 0; i < symbolsFirstName.length; i++) {
-            if (Character.isDigit(symbolsFirstName[i]))
-                errors.rejectValue("firstName", "", "First name must have only letters");
+
+            for (int i = 0; i < user.getLastName().length(); i++) {
+                if (user.getLastName().charAt(i) >= '0'
+                        && user.getLastName().charAt(i) <= '9') {
+                    errors.rejectValue("lastName", "", "Last name must have only letters");
+                }
+            }
+
+
+            if (!Character.isUpperCase(user.getFirstName().codePointAt(0)))
+                errors.rejectValue("firstName", "", "First name should start with a capital letter");
+
+
+            if (!Character.isUpperCase(user.getLastName().codePointAt(0)))
+                errors.rejectValue("lastName", "", "Last name should start with a capital letter");
+
         }
-
-        char[] symbolsLastName = user.getLastName().toCharArray();
-
-        for (int i = 0; i < symbolsFirstName.length; i++) {
-            if (Character.isDigit(symbolsLastName[i]))
-                errors.rejectValue("lastName", "", "Last name must have only letters");
-        }
-
-
-        if (!Character.isUpperCase(user.getFirstName().codePointAt(0)))
-            errors.rejectValue("firstName", "", "First name should start with a capital letter");
-
-
-        if (!Character.isUpperCase(user.getLastName().codePointAt(0)))
-            errors.rejectValue("lastName", "", "Last name should start with a capital letter");
-
 
     }
-
 
 }
