@@ -40,22 +40,6 @@ public class UserValidator implements Validator {
 
         else{
 
-            for (int i = 0; i < user.getFirstName().length(); i++) {
-                if (user.getFirstName().charAt(i) >= '0'
-                        && user.getFirstName().charAt(i) <= '9') {
-                    errors.rejectValue("firstName", "", "First name must have only letters");
-                }
-            }
-
-
-            for (int i = 0; i < user.getLastName().length(); i++) {
-                if (user.getLastName().charAt(i) >= '0'
-                        && user.getLastName().charAt(i) <= '9') {
-                    errors.rejectValue("lastName", "", "Last name must have only letters");
-                }
-            }
-
-
             if (!Character.isUpperCase(user.getFirstName().codePointAt(0)))
                 errors.rejectValue("firstName", "", "First name should start with a capital letter");
 

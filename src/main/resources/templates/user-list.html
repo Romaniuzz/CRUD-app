@@ -16,6 +16,7 @@
                 <th>First name</th>
                 <th>Last name</th>
                 <th>E-mail</th>
+                <th>Operations</th>
             </tr>
             </thead>
             <tbody>
@@ -24,13 +25,13 @@
                 <td th:text="${user.firstName}"></td>
                 <td th:text="${user.lastName}"></td>
                 <td th:text="${user.email}"></td>
-                <td><a th:href="@{user-update/{id}(id=${user.id})}">Edit</a></td>
-                <td><a th:href="@{user-delete/{id}(id=${user.id})}">Delete</a></td>
+                <td><a th:href="@{user-update/{id}(id=${user.id})}">Edit</a>
+                    <a th:href="@{user-delete/{id}(id=${user.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/user-create">Create user</a></p>
+    <p><a href="/user-create">Create new user</a></p>
 </div>
 </body>
 </html>
