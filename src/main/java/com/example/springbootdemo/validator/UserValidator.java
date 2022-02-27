@@ -46,7 +46,9 @@ public class UserValidator implements Validator {
 
             if (!Character.isUpperCase(user.getLastName().codePointAt(0)))
                 errors.rejectValue("lastName", "", "Last name should start with a capital letter");
-
+            
+            if(userService.checkIfUserExistsByEmail(user.getEmail()) != null)
+                errors.rejectValue("email", "", "E-mail already exists");
         }
 
     }
