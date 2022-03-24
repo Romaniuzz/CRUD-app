@@ -5,14 +5,12 @@ import com.example.springbootdemo.model.User;
 import com.example.springbootdemo.service.UserService;
 import com.example.springbootdemo.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -39,11 +37,13 @@ public class UserController {
     }
 
     @GetMapping("/user-create")
+    @PreAuthorize("hasAuthority('users:write')")
     public String createUserForm(User user){
         return "user-create";
     }
 
     @PostMapping("/user-create")
+    @PreAuthorize("hasAuthority('users:write')")
     public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult){
         userValidator.validate(user,bindingResult);
 
@@ -55,12 +55,14 @@ public class UserController {
     }
 
     @GetMapping("user-delete/{id}")
+    @PreAuthorize("hasAuthority('users:write')")
     public String deleteUser(@PathVariable("id") Long id){
         userService.deleteById(id);
         return "redirect:/users";
     }
 
     @GetMapping("/user-update/{id}")
+    @PreAuthorize("hasAuthority('users:write')")
     public String updateUserForm(@PathVariable("id") Long id, Model model){
         User user = userService.findById(id);
         model.addAttribute("user", user);
@@ -68,6 +70,7 @@ public class UserController {
     }
 
     @PostMapping("/user-update")
+    @PreAuthorize("hasAuthority('users:write')")
     public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult){
         userValidator.validate(user, bindingResult);
 

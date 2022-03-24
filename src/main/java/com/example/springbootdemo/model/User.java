@@ -30,6 +30,6 @@ public class User {
 
     @Column(name = "email")
     @NotBlank(message = "email is required for filling")
-    @Email
+    @Email(message = "Please enter a valid e-mail address")
     private String email;
 }
