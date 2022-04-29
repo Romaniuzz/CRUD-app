@@ -50,16 +50,17 @@ public class UserSignUpValidator implements Validator {
 
         else{
 
-            boolean checkIsNumberInFirstName = isNumber(userSignUp.getFirstName());
-            boolean checkIsNumberInLastName = isNumber(userSignUp.getLastName());
+            boolean checkIsNotLetterInFirstName = isNotLetter(userSignUp.getFirstName());
+            boolean checkIsNotLetterInLastName = isNotLetter(userSignUp.getLastName());
 
-            if(checkIsNumberInFirstName){
+            if(checkIsNotLetterInFirstName){
                 errors.rejectValue("firstName", "", "First name should contain only letters");
             }
 
-            if(checkIsNumberInLastName){
+            if(checkIsNotLetterInLastName){
                 errors.rejectValue("lastName", "", "Last name should contain only letters");
             }
+
 
             if (!Character.isUpperCase(userSignUp.getFirstName().codePointAt(0)))
                 errors.rejectValue("firstName", "", "First name should start with a capital letter");
@@ -75,12 +76,12 @@ public class UserSignUpValidator implements Validator {
     }
 
 
-    public static boolean isNumber(String s) {
+    public static boolean isNotLetter(String s) {
         if(s == null)
             return false;
 
         for(char c: s.toCharArray()) {
-            if(Character.isDigit(c))
+            if(!Character.isLetter(c))
                 return true;
         }
         return false;

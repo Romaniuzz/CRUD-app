@@ -1,41 +1,59 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<meta charset="UTF-8">
-<title>Update user</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>User update</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form action="#" th:action="@{/user-update}" th:object="${user}" method="post">
-    <table>
+<div class="container text-center">
+    <div>
+        <h1>User update</h1>
+    </div>
+    <form action="#" th:action="@{/user-update}" th:object="${user}"
+          method="post" style="max-width: 600px; margin: 0 auto;">
 
-        <tr>
-           <td><label for="id">ID</label></td>
-            <td><input readonly type="number" th:field="*{id}" id="id" placeholder="ID"></td>
-        </tr>
+        <div class="m-3">
+            <div class="form-group row">
+                <label class="col-4 col-form-label">ID</label>
+                <div class="col-8">
+                    <input readonly type="number" th:field="*{id}" class="form-control">
+                </div>
+            </div>
 
-        <tr>
-            <td><label for="firstName">Enter first name</label></td>
-            <td><input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name"></td>
-            <td style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name Error</td>
+        <div class="m-3">
+            <div class="form-group row">
+                <label class="col-4 col-form-label">First name: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{firstName}" class="form-control" required>
+                    <span style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name error</span>
+                </div>
+            </div>
 
-        </tr>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Last name: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{lastName}" class="form-control" required>
+                    <span style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name error</span>
+                </div>
+            </div>
 
-        <tr>
-            <td><label for="lastName">Enter last name</label></td>
-            <td><input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name"></td>
-            <td style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name Error</td>
-
-        </tr>
-
-        <tr>
-            <td><label for="email">Enter e-mail</label></td>
-            <td><input type="text" th:field="*{email}" id="email" placeholder="Email"></td>
-            <td style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">E-mail Error</td>
-        </tr>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">E-mail: </label>
+                <div class="col-8">
+                    <input type="email" th:field="*{email}" class="form-control" required/>
+                    <span style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">E-mail error</span>
+                </div>
+            </div>
 
 
-        <td><input type="submit" value="Update User"></td>
-
-    </table>
-</form>
+            <div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </form>
+</div>
 </body>
 </html>

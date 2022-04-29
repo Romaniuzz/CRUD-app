@@ -40,6 +40,7 @@ public class UserValidator implements Validator {
 
         else{
 
+
             if (!Character.isUpperCase(user.getFirstName().codePointAt(0)))
                 errors.rejectValue("firstName", "", "First name should start with a capital letter");
 
