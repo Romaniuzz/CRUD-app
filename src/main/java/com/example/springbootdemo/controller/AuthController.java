@@ -40,7 +40,7 @@ public class AuthController {
     }
 
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String getHomePage(){
         return "home";
     }
